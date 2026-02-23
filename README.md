@@ -1,5 +1,7 @@
 # Musgravite Dashboard
 
+<img src="https://skillicons.dev/icons?i=python,react,sqlite" />
+
 O **Musgravite Dashboard** é uma plataforma analítica desenvolvida para o monitoramento e gestão de Notas AM, oferecendo insights detalhados sobre reclamações de leitura de consumo de energia. Através de visualizações interativas e processamento de dados eficiente, a ferramenta auxilia na tomada de decisões estratégicas e operacionais.
 
 ## 📝 O que é Nota AM?
