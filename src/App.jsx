@@ -62,8 +62,7 @@ function useClock() {
 const RC = { 
   MANTIQUEIRA: "#3b82f6", 
   "DIVINÓPOLIS": "#10b981", 
-  "TRIÂNGULO": "#f59e0b",
-  "TRIÂNGULO MINEIRO": "#f59e0b" 
+  "TRIÂNGULO MINEIRO": "#f59e0b"
 };
 const rc = (r) => RC[r?.toUpperCase()] || "#64748b";
 
