@@ -1,6 +1,16 @@
 import pandas as pd
 import sqlite3
 import os
+import unicodedata
+
+def remover_acentos(texto):
+    if not isinstance(texto, str):
+        return texto
+    # Normaliza para a forma NFD (decomposição) e filtra caracteres que não são "combining marks"
+    return "".join(
+        c for c in unicodedata.normalize('NFD', texto)
+        if unicodedata.category(c) != 'Mn'
+    )
 
 dir_localidade = r'C:\Users\anali\OneDrive\Desktop\Musgravite Dashboard\backend\data\CODIGOS LOCAIS.xlsx'
 db_path = r'C:\Users\anali\OneDrive\Desktop\Musgravite Dashboard\backend\data\musgravite.db'
@@ -13,8 +23,14 @@ else:
     df_limpo = df_codigos[[1, 4]].copy()
     df_limpo.columns = ['cidade', 'regiao']
 
-    df_limpo['cidade'] = df_limpo['cidade'].astype(str).str.strip().str.upper()
-    df_limpo['regiao'] = df_limpo['regiao'].astype(str).str.strip().str.upper()
+    # Tratamento de strings e remoção de acentos
+    for col in ['cidade', 'regiao']:
+        df_limpo[col] = (df_limpo[col]
+                         .astype(str)
+                         .str.strip()
+                         .apply(remover_acentos) # Remove acentos aqui
+                         .str.upper())
+
     df_final = df_limpo.drop_duplicates()
 
     conn = sqlite3.connect(db_path)
@@ -38,4 +54,3 @@ else:
 
     print("===== PROCESSAMENTO CONCLUÍDO =====")
     print(f"Total de cidades únicas processadas: {len(df_final)}")
-    print(f"Banco de dados atualizado em: {db_path}")
